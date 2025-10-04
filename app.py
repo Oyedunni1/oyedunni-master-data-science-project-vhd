@@ -327,12 +327,11 @@ def main():
         """, unsafe_allow_html=True)
     
     # Main content
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "Upload & Predict", 
         "Analysis", 
         "Model Performance", 
         "Detailed Metrics",
-        "Performance Dashboard",
         "About"
     ])
     
@@ -574,6 +573,132 @@ def main():
                     st.metric("AUC Score", f"{training_metrics.get('auc_score', 0):.1%}")
                     st.metric("Specificity", f"{training_metrics.get('specificity', 0):.1%}")
                 
+                # Train vs Test vs Validation Metrics
+                st.markdown("#### 📊 Train vs Test vs Validation Performance")
+                
+                # Get detailed performance data
+                try:
+                    detailed_metrics = st.session_state.pipeline.performance_tracker.get_comprehensive_metrics()
+                    
+                    # Extract train/test/validation metrics
+                    train_metrics = detailed_metrics.get('training_performance', {})
+                    test_metrics = detailed_metrics.get('testing_performance', {})
+                    val_metrics = detailed_metrics.get('validation_performance', {})
+                    
+                    if train_metrics and test_metrics and val_metrics:
+                        # Create comparison dataframe
+                        comparison_data = {
+                            'Dataset': ['Training', 'Testing', 'Validation'],
+                            'Accuracy': [
+                                train_metrics.get('accuracy', 0),
+                                test_metrics.get('accuracy', 0),
+                                val_metrics.get('accuracy', 0)
+                            ],
+                            'Loss': [
+                                train_metrics.get('loss', 0),
+                                test_metrics.get('loss', 0),
+                                val_metrics.get('loss', 0)
+                            ],
+                            'Samples': [
+                                train_metrics.get('samples', 0),
+                                test_metrics.get('samples', 0),
+                                val_metrics.get('samples', 0)
+                            ]
+                        }
+                        
+                        comparison_df = pd.DataFrame(comparison_data)
+                        
+                        # Display metrics in columns
+                        col1, col2, col3 = st.columns(3)
+                        
+                        with col1:
+                            st.markdown("**Training Set**")
+                            st.metric("Accuracy", f"{train_metrics.get('accuracy', 0):.1%}")
+                            st.metric("Loss", f"{train_metrics.get('loss', 0):.3f}")
+                            st.metric("Samples", f"{train_metrics.get('samples', 0):,}")
+                        
+                        with col2:
+                            st.markdown("**Testing Set**")
+                            st.metric("Accuracy", f"{test_metrics.get('accuracy', 0):.1%}")
+                            st.metric("Loss", f"{test_metrics.get('loss', 0):.3f}")
+                            st.metric("Samples", f"{test_metrics.get('samples', 0):,}")
+                        
+                        with col3:
+                            st.markdown("**Validation Set**")
+                            st.metric("Accuracy", f"{val_metrics.get('accuracy', 0):.1%}")
+                            st.metric("Loss", f"{val_metrics.get('loss', 0):.3f}")
+                            st.metric("Samples", f"{val_metrics.get('samples', 0):,}")
+                        
+                        # Performance comparison chart
+                        st.markdown("#### 📈 Performance Comparison")
+                        
+                        # Accuracy comparison
+                        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+                        
+                        # Accuracy bar chart
+                        datasets = comparison_df['Dataset']
+                        accuracies = comparison_df['Accuracy']
+                        colors = ['#3b82f6', '#10b981', '#f59e0b']
+                        
+                        ax1.bar(datasets, accuracies, color=colors, alpha=0.8)
+                        ax1.set_title('Accuracy Comparison', fontsize=14, fontweight='bold')
+                        ax1.set_ylabel('Accuracy')
+                        ax1.set_ylim(0, 1)
+                        ax1.grid(True, alpha=0.3)
+                        
+                        # Add value labels on bars
+                        for i, v in enumerate(accuracies):
+                            ax1.text(i, v + 0.01, f'{v:.1%}', ha='center', fontweight='bold')
+                        
+                        # Loss comparison
+                        losses = comparison_df['Loss']
+                        ax2.bar(datasets, losses, color=colors, alpha=0.8)
+                        ax2.set_title('Loss Comparison', fontsize=14, fontweight='bold')
+                        ax2.set_ylabel('Loss')
+                        ax2.grid(True, alpha=0.3)
+                        
+                        # Add value labels on bars
+                        for i, v in enumerate(losses):
+                            ax2.text(i, v + 0.001, f'{v:.3f}', ha='center', fontweight='bold')
+                        
+                        plt.tight_layout()
+                        st.pyplot(fig)
+                        
+                        # Performance insights
+                        st.markdown("#### 🔍 Performance Insights")
+                        
+                        # Calculate insights
+                        train_acc = train_metrics.get('accuracy', 0)
+                        test_acc = test_metrics.get('accuracy', 0)
+                        val_acc = val_metrics.get('accuracy', 0)
+                        
+                        overfitting = train_acc - test_acc
+                        generalization = test_acc - val_acc
+                        
+                        col1, col2 = st.columns(2)
+                        
+                        with col1:
+                            if overfitting > 0.05:
+                                st.warning(f"⚠️ **Potential Overfitting**: Training accuracy ({train_acc:.1%}) is significantly higher than testing accuracy ({test_acc:.1%})")
+                            elif overfitting < -0.05:
+                                st.info(f"ℹ️ **Underfitting**: Training accuracy ({train_acc:.1%}) is lower than testing accuracy ({test_acc:.1%})")
+                            else:
+                                st.success(f"✅ **Good Fit**: Training and testing accuracies are well-balanced")
+                        
+                        with col2:
+                            if generalization > 0.05:
+                                st.warning(f"⚠️ **Validation Gap**: Testing accuracy ({test_acc:.1%}) is higher than validation accuracy ({val_acc:.1%})")
+                            elif generalization < -0.05:
+                                st.info(f"ℹ️ **Strong Generalization**: Validation accuracy ({val_acc:.1%}) is higher than testing accuracy ({test_acc:.1%})")
+                            else:
+                                st.success(f"✅ **Consistent Performance**: Testing and validation accuracies are well-aligned")
+                        
+                    else:
+                        st.info("📊 Detailed train/test/validation metrics will be available after model training")
+                        
+                except Exception as e:
+                    st.info("📊 Train/test/validation metrics will be available after model training")
+                
                 # Model Performance Visualization
                 st.markdown("#### 📈 Model Performance Metrics")
                 
@@ -636,7 +761,6 @@ def main():
                 st.markdown("#### 🎯 Model Training Details")
                 
                 training_details = {
-                    'Training Date': training_metrics.get('training_date', 'Unknown'),
                     'Model Type': training_metrics.get('model_used', 'VHD Detection Model'),
                     'Total Features': '16 (6 Fractal + 10 Audio)',
                     'Feature Extraction': 'Ultra-Fast Parallel Processing',
@@ -725,89 +849,6 @@ def main():
             st.warning("Model not trained. Please run `python train_model.py` first.")
     
     with tab5:
-        st.markdown("### Performance Dashboard")
-        
-        if st.session_state.pipeline.is_trained:
-            try:
-                # Performance Overview
-                st.markdown("#### Speed Performance")
-                col1, col2, col3, col4 = st.columns(4)
-                
-                with col1:
-                    st.metric("Target Speed", "10+ files/sec", "Ultra-Fast")
-                
-                with col2:
-                    st.metric("Parallel Workers", "8 max", "Multi-threaded")
-                
-                with col3:
-                    st.metric("Feature Count", "16 features", "Enhanced")
-                
-                with col4:
-                    st.metric("Processing", "Vectorized", "Fast")
-                
-                # Feature Processing Speed
-                st.markdown("#### Feature Processing Speed")
-                st.markdown("""
-                **OPTIMAL Feature Extraction (16 features):**
-                
-                **Fractal Features (6) - Enhanced:**
-                - Ultra-Fast Higuchi Fractal Dimension (k_max=2, vectorized)
-                - Ultra-Fast Sample Entropy (reduced search, vectorized)
-                - Signal Standard Deviation (vectorized)
-                - Ultra-Fast Hurst Exponent (2 scales, vectorized)
-                - Signal Complexity (NEW - variance of differences)
-                - Spectral Entropy (NEW - frequency domain complexity)
-                
-                **Audio Features (10) - Enhanced:**
-                - Ultra-Fast Mel-spectrogram (4 mels, hop=4096)
-                - Enhanced Spectral features (energy, centroid, bandwidth)
-                - Enhanced Audio features (zero crossing, rolloff, contrast)
-                - Ultra-Fast MFCC (2 coefficients, hop=4096)
-                
-                **Performance Optimizations:**
-                - ✅ Parallel processing with ThreadPoolExecutor
-                - ✅ Vectorized NumPy operations
-                - ✅ Minimal computation parameters
-                - ✅ Memory-efficient batch processing
-                - ✅ Ultra-reduced feature dimensions
-                """)
-                
-                # Speed Comparison
-                st.markdown("#### Speed Comparison")
-                speed_data = {
-                    'Processing Method': ['Original', 'Fast', 'Ultra-Fast', 'Parallel Ultra-Fast', 'Enhanced Optimal'],
-                    'Files/Second': [2, 5, 8, 12, 10],
-                    'Features': [12, 12, 12, 12, 16],
-                    'Optimization': ['Basic', 'Reduced params', 'Vectorized', 'Parallel + Vectorized', 'Enhanced + Parallel']
-                }
-                
-                speed_df = pd.DataFrame(speed_data)
-                st.dataframe(speed_df, use_container_width=True)
-                
-                # Performance Metrics
-                st.markdown("#### Real-time Performance Metrics")
-                try:
-                    dynamic_metrics = st.session_state.pipeline.get_dynamic_metrics()
-                    
-                    col1, col2 = st.columns(2)
-                    
-                    with col1:
-                        st.metric("Average Processing Time", f"{dynamic_metrics.get('average_processing_time', 0):.3f}s")
-                        st.metric("Total Predictions", dynamic_metrics.get('total_predictions', 0))
-                    
-                    with col2:
-                        st.metric("Success Rate", f"{dynamic_metrics.get('success_rate', 0):.1%}")
-                        st.metric("Average Confidence", f"{dynamic_metrics.get('average_confidence', 0):.1%}")
-                    
-                except Exception as e:
-                    st.info("Performance metrics will be available after running predictions")
-                
-            except Exception as e:
-                st.error(f"Error loading performance dashboard: {e}")
-        else:
-            st.warning("Model not trained. Please run `python train_model.py` first.")
-    
-    with tab6:
         st.markdown("### About This System")
         st.markdown("""
         **VHD Detection System** is an advanced medical screening tool for detecting Valvular Heart Disease 
