@@ -1,14 +1,14 @@
 # Data folder - contains large datasets
 data/
 
-# Model files - can be large
-models/*.pkl
-models/*.joblib
-models/*.h5
-models/*.pth
+# Model files - can be large (commented out to include models folder)
+# models/*.pkl
+# models/*.joblib
+# models/*.h5
+# models/*.pth
 
-# Performance metrics - contains runtime data
-models/performance_metrics.json
+# Performance metrics - contains runtime data (commented out to include)
+# models/performance_metrics.json
 
 # Python cache
 __pycache__/
