@@ -34,25 +34,55 @@ class DeepFeatureExtractor:
         self._initialize_models()
     
     def _initialize_models(self):
-        """Initialize pre-trained CNN models for feature extraction"""
+        """Initialize pre-trained CNN models for feature extraction with Windows compatibility"""
         
-        # VGG16 Feature Extractor
-        self.vgg_base = VGG16(weights='imagenet', include_top=False, 
-                             input_shape=(*self.target_size, 3))
-        self.vgg_feature_extractor = Model(inputs=self.vgg_base.input, 
-                                          outputs=self.vgg_base.get_layer('block5_pool').output)
+        try:
+            # VGG16 Feature Extractor
+            self.vgg_base = VGG16(weights='imagenet', include_top=False, 
+                                 input_shape=(*self.target_size, 3))
+            self.vgg_feature_extractor = Model(inputs=self.vgg_base.input, 
+                                              outputs=self.vgg_base.get_layer('block5_pool').output)
+            print("✓ VGG16 loaded with ImageNet weights")
+        except Exception as e:
+            print(f"⚠️  Could not load VGG16 with ImageNet weights: {e}")
+            print("   Falling back to random initialization...")
+            # Fallback to no pre-trained weights
+            self.vgg_base = VGG16(weights=None, include_top=False, 
+                                 input_shape=(*self.target_size, 3))
+            self.vgg_feature_extractor = Model(inputs=self.vgg_base.input, 
+                                              outputs=self.vgg_base.get_layer('block5_pool').output)
         
-        # ResNet50 Feature Extractor
-        self.resnet_base = ResNet50(weights='imagenet', include_top=False,
-                                   input_shape=(*self.target_size, 3))
-        self.resnet_feature_extractor = Model(inputs=self.resnet_base.input,
-                                             outputs=self.resnet_base.get_layer('conv5_block3_out').output)
+        try:
+            # ResNet50 Feature Extractor
+            self.resnet_base = ResNet50(weights='imagenet', include_top=False,
+                                       input_shape=(*self.target_size, 3))
+            self.resnet_feature_extractor = Model(inputs=self.resnet_base.input,
+                                                 outputs=self.resnet_base.get_layer('conv5_block3_out').output)
+            print("✓ ResNet50 loaded with ImageNet weights")
+        except Exception as e:
+            print(f"⚠️  Could not load ResNet50 with ImageNet weights: {e}")
+            print("   Falling back to random initialization...")
+            # Fallback to no pre-trained weights
+            self.resnet_base = ResNet50(weights=None, include_top=False,
+                                       input_shape=(*self.target_size, 3))
+            self.resnet_feature_extractor = Model(inputs=self.resnet_base.input,
+                                                 outputs=self.resnet_base.get_layer('conv5_block3_out').output)
         
-        # EfficientNet Feature Extractor
-        self.efficientnet_base = EfficientNetB0(weights='imagenet', include_top=False,
-                                               input_shape=(*self.target_size, 3))
-        self.efficientnet_feature_extractor = Model(inputs=self.efficientnet_base.input,
-                                                   outputs=self.efficientnet_base.get_layer('block7a_expand_conv').output)
+        try:
+            # EfficientNet Feature Extractor
+            self.efficientnet_base = EfficientNetB0(weights='imagenet', include_top=False,
+                                                   input_shape=(*self.target_size, 3))
+            self.efficientnet_feature_extractor = Model(inputs=self.efficientnet_base.input,
+                                                       outputs=self.efficientnet_base.get_layer('block7a_expand_conv').output)
+            print("✓ EfficientNetB0 loaded with ImageNet weights")
+        except Exception as e:
+            print(f"⚠️  Could not load EfficientNetB0 with ImageNet weights: {e}")
+            print("   Falling back to random initialization...")
+            # Fallback to no pre-trained weights
+            self.efficientnet_base = EfficientNetB0(weights=None, include_top=False,
+                                                   input_shape=(*self.target_size, 3))
+            self.efficientnet_feature_extractor = Model(inputs=self.efficientnet_base.input,
+                                                       outputs=self.efficientnet_base.get_layer('block7a_expand_conv').output)
     
     def create_mel_spectrogram(self, signal: np.ndarray, sr: int = None) -> np.ndarray:
         """
