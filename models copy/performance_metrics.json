@@ -1,0 +1,215 @@
+{
+  "model_info": {
+    "is_trained": true,
+    "training_date": "2025-10-04T04:24:05.843873",
+    "model_type": "VHD Detection Model",
+    "accuracy": 0.849083215796897,
+    "precision": 0.8066290550070522,
+    "recall": 0.7641748942172074,
+    "f1_score": 0.7848282697365914,
+    "auc_score": 0.8321015514809591,
+    "specificity": 0.7848282697365914,
+    "sensitivity": 0.7641748942172074,
+    "confusion_matrix": [
+      [
+        301,
+        53
+      ],
+      [
+        53,
+        301
+      ]
+    ]
+  },
+  "runtime_stats": {
+    "total_predictions": 23,
+    "successful_predictions": 23,
+    "failed_predictions": 0,
+    "average_confidence": 0.7629923914118639,
+    "average_processing_time": 0.19549504570339038,
+    "last_prediction_time": "2025-10-04T04:36:03.132903"
+  },
+  "prediction_history": [
+    {
+      "timestamp": "2025-10-04T03:49:25.234210",
+      "confidence": 0.788011385252713,
+      "processing_time": 0.8680036067962646,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:49:25.315754",
+      "confidence": 0.7657278864069692,
+      "processing_time": 0.08109188079833984,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:52:11.981647",
+      "confidence": 0.7818155238478501,
+      "processing_time": 0.7528560161590576,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:52:34.125637",
+      "confidence": 0.7883476042639949,
+      "processing_time": 0.09365105628967285,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:52:40.008319",
+      "confidence": 0.7882900354931294,
+      "processing_time": 0.0876619815826416,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:52:44.322400",
+      "confidence": 0.7882900354931294,
+      "processing_time": 0.10685110092163086,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:52:51.409472",
+      "confidence": 0.7903643058511767,
+      "processing_time": 0.11554288864135742,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:52:57.504955",
+      "confidence": 0.7982376890925023,
+      "processing_time": 0.10039925575256348,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:53:00.619194",
+      "confidence": 0.7814388036690991,
+      "processing_time": 0.08957123756408691,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:53:04.479284",
+      "confidence": 0.789561479019708,
+      "processing_time": 0.08705782890319824,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T03:53:09.700138",
+      "confidence": 0.7691337784304102,
+      "processing_time": 0.09036588668823242,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:05:45.567147",
+      "confidence": 0.8269737169263108,
+      "processing_time": 0.8170499801635742,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:06:55.228270",
+      "confidence": 0.7183389568154159,
+      "processing_time": 0.09859204292297363,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:07:00.839031",
+      "confidence": 0.8105273392707338,
+      "processing_time": 0.10455989837646484,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:07:06.712662",
+      "confidence": 0.9522370404389388,
+      "processing_time": 0.0914297103881836,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:25:19.204936",
+      "confidence": 0.7458204744604028,
+      "processing_time": 0.0927271842956543,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:27:13.863790",
+      "confidence": 0.7423675609415065,
+      "processing_time": 0.10668706893920898,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:27:17.272802",
+      "confidence": 0.5552663758181619,
+      "processing_time": 0.10552287101745605,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:27:20.595355",
+      "confidence": 0.5170222084585575,
+      "processing_time": 0.08777904510498047,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:27:25.600799",
+      "confidence": 0.5858368940989392,
+      "processing_time": 0.20286011695861816,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:27:27.120507",
+      "confidence": 0.5858368940989392,
+      "processing_time": 0.09631204605102539,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:27:31.965536",
+      "confidence": 0.9923707469214434,
+      "processing_time": 0.1019589900970459,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:36:03.132903",
+      "confidence": 0.8870082674028332,
+      "processing_time": 0.11785435676574707,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    }
+  ],
+  "performance_trends": {
+    "daily_accuracy": [],
+    "daily_confidence": [],
+    "daily_predictions": []
+  },
+  "training_performance": {
+    "accuracy": 0.849083215796897,
+    "loss": 0.15091678420310295,
+    "samples": 2832
+  },
+  "testing_performance": {
+    "accuracy": 0.849083215796897,
+    "loss": 0.15091678420310295,
+    "samples": 709
+  },
+  "validation_performance": {
+    "accuracy": 0.8066290550070522,
+    "loss": 0.1584626234132581,
+    "samples": 709
+  }
+}

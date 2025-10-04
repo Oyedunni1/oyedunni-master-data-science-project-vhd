@@ -1,13 +1,13 @@
 {
   "model_info": {
     "is_trained": true,
-    "training_date": "2025-10-04T04:24:05.843873",
+    "training_date": "2025-10-04T11:35:34.723246",
     "model_type": "VHD Detection Model",
     "accuracy": 0.849083215796897,
     "precision": 0.8066290550070522,
     "recall": 0.7641748942172074,
     "f1_score": 0.7848282697365914,
-    "auc_score": 0.8321015514809591,
+    "auc_score": 0.9131553518056585,
     "specificity": 0.7848282697365914,
     "sensitivity": 0.7641748942172074,
     "confusion_matrix": [
@@ -22,12 +22,12 @@
     ]
   },
   "runtime_stats": {
-    "total_predictions": 23,
-    "successful_predictions": 23,
+    "total_predictions": 24,
+    "successful_predictions": 24,
     "failed_predictions": 0,
-    "average_confidence": 0.7629923914118639,
-    "average_processing_time": 0.19549504570339038,
-    "last_prediction_time": "2025-10-04T04:36:03.132903"
+    "average_confidence": 0.7570740132036109,
+    "average_processing_time": 0.2295920451482137,
+    "last_prediction_time": "2025-10-04T14:28:25.814142"
   },
   "prediction_history": [
     {
@@ -188,6 +188,13 @@
       "timestamp": "2025-10-04T04:36:03.132903",
       "confidence": 0.8870082674028332,
       "processing_time": 0.11785435676574707,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:28:25.814142",
+      "confidence": 0.6209513144137895,
+      "processing_time": 1.0138230323791504,
       "prediction": "Abnormal (VHD Detected)",
       "success": true
     }

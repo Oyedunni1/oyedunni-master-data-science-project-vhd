@@ -1,6 +1,6 @@
 """
 Complete VHD Detection Pipeline
-Integrates all components for end-to-end processing
+Integrates all components for end-to-end processing with automatic platform optimization
 """
 
 import numpy as np
@@ -21,18 +21,40 @@ from src.fractal_features import FractalFeatureExtractor
 from src.deep_features import DeepFeatureExtractor
 from src.model_training import VHDModelTrainer
 from src.performance_tracker import ModelPerformanceTracker
+from src.platform_detector import PlatformDetector, get_platform_detector
+from src.resource_optimizer import ResourceOptimizer
+from src.platform_configs import PlatformConfigs
 
 class VHDPredictionPipeline:
     """
-    Complete pipeline for VHD detection
+    Complete pipeline for VHD detection with automatic platform optimization
     """
     
     def __init__(self, data_dir: str = "data", model_dir: str = "models"):
+        # Initialize platform detection and optimization
+        print("🔍 Initializing platform detection and optimization...")
+        self.platform_detector = get_platform_detector()
+        self.platform_configs = PlatformConfigs()
+        
+        # Get optimal configuration for current platform
+        platform_info = self.platform_detector.get_platform_info()
+        self.platform_config = self.platform_configs.get_optimal_settings(
+            platform_info['platform']['os_type'], 
+            platform_info['resources']
+        )
+        
+        # Apply platform-specific optimizations
+        self.platform_configs.apply_config(self.platform_config)
+        
+        # Initialize resource optimizer
+        self.resource_optimizer = ResourceOptimizer(self.platform_config)
+        
+        # Initialize directories
         self.data_dir = Path(data_dir)
         self.model_dir = Path(model_dir)
         self.model_dir.mkdir(exist_ok=True)
         
-        # Initialize components
+        # Initialize components with platform optimization
         self.data_manager = PhysioNetDataManager(data_dir)
         self.preprocessor = HeartSoundPreprocessor()
         self.fractal_extractor = FractalFeatureExtractor()
@@ -43,6 +65,33 @@ class VHDPredictionPipeline:
         # Pipeline state
         self.is_trained = False
         self.feature_names = []
+        
+        # Print platform optimization summary
+        self._print_optimization_summary()
+    
+    def _print_optimization_summary(self):
+        """Print platform optimization summary"""
+        print("\n" + "=" * 80)
+        print("🚀 VHD PREDICTION SYSTEM - PLATFORM OPTIMIZATION")
+        print("=" * 80)
+        
+        platform_info = self.platform_detector.get_platform_info()
+        print(f"📊 Platform: {platform_info['platform']['os_type']}")
+        print(f"💻 Architecture: {platform_info['platform']['architecture'][0]}")
+        print(f"🧠 CPU Cores: {platform_info['resources']['cpu_count']}")
+        print(f"💾 Memory: {platform_info['resources']['memory_total_gb']:.1f} GB")
+        print(f"🎮 GPU Available: {'Yes' if platform_info['resources']['gpu_available'] else 'No'}")
+        
+        print(f"\n⚙️  OPTIMIZATION SETTINGS:")
+        print(f"   Max Workers: {self.platform_config['cpu_optimization']['max_workers']}")
+        print(f"   Batch Size: {self.platform_config['processing_config']['batch_size']}")
+        print(f"   Memory Limit: {self.platform_config['memory_management']['limit_gb']} GB")
+        print(f"   GPU Acceleration: {'Enabled' if self.platform_config['gpu_optimization']['enabled'] else 'Disabled'}")
+        print(f"   Processing Mode: {self.platform_config['optimization_level'].title()}")
+        
+        print("\n" + "=" * 80)
+        print("✅ PLATFORM OPTIMIZATION COMPLETE")
+        print("=" * 80 + "\n")
         
     def prepare_data(self, use_synthetic: bool = True) -> pd.DataFrame:
         """
@@ -114,20 +163,26 @@ class VHDPredictionPipeline:
             print(f"Error in parallel processing for {filename}: {e}")
             return np.array([]), np.array([]), filename
     
-    def extract_features_batch(self, df: pd.DataFrame, max_samples: int = None, batch_size: int = 100, use_parallel: bool = True) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def extract_features_batch(self, df: pd.DataFrame, max_samples: int = None, batch_size: int = None, use_parallel: bool = None) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
-        Extract features from batch of files with PARALLEL processing for maximum speed
+        Extract features from batch of files with platform-optimized processing
         """
         if max_samples:
             df = df.head(max_samples)
         
-        print(f" Extracting features from {len(df)} samples using PARALLEL ULTRA-FAST processing...")
-        print(f" Batch size: {batch_size} samples per batch")
-        print(f" Optimized for 10+ files/second processing with parallel processing")
-        print(f" Memory-optimized for large datasets")
-        print(f" Parallel processing: {'Enabled' if use_parallel else 'Disabled'}")
+        # Use platform-optimized settings if not specified
+        if batch_size is None:
+            batch_size = self.platform_config['processing_config']['batch_size']
+        if use_parallel is None:
+            use_parallel = self.platform_config['processing_config']['parallel_processing']
+        
+        print(f"🚀 Extracting features from {len(df)} samples using PLATFORM-OPTIMIZED processing...")
+        print(f"📊 Batch size: {batch_size} samples per batch")
+        print(f"⚡ Processing mode: {self.platform_config['optimization_level'].title()}")
+        print(f"🧠 Memory management: {self.platform_config['memory_management']['strategy'].title()}")
+        print(f"🔄 Parallel processing: {'Enabled' if use_parallel else 'Disabled'}")
         print(f"")
-        print(f" OPTIMAL FEATURES BEING EXTRACTED:")
+        print(f"🎯 OPTIMAL FEATURES BEING EXTRACTED:")
         print(f"    Fractal Features (6):")
         print(f"      - Ultra-Fast Higuchi Fractal Dimension")
         print(f"      - Ultra-Fast Sample Entropy") 
@@ -154,15 +209,15 @@ class VHDPredictionPipeline:
         
         # Process in batches to manage memory
         num_batches = (len(df) + batch_size - 1) // batch_size
-        print(f" Processing {num_batches} batches of {batch_size} samples each")
+        print(f"📦 Processing {num_batches} batches of {batch_size} samples each")
         
         # Timing for performance tracking
         start_time = time.time()
         files_processed = 0
         
-        # Determine optimal number of workers
-        max_workers = min(cpu_count(), 8) if use_parallel else 1
-        print(f" Using {max_workers} parallel workers")
+        # Use platform-optimized worker count
+        max_workers = self.platform_config['cpu_optimization']['max_workers'] if use_parallel else 1
+        print(f"👥 Using {max_workers} parallel workers (platform-optimized)")
         
         for batch_idx in range(num_batches):
             start_idx = batch_idx * batch_size
@@ -177,8 +232,9 @@ class VHDPredictionPipeline:
             batch_labels = []
             
             if use_parallel and max_workers > 1:
-                # Parallel processing
-                with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                # Platform-optimized parallel processing
+                executor = self.resource_optimizer.get_executor(max_workers)
+                with executor as executor:
                     results = list(executor.map(self._extract_features_parallel, batch_file_infos))
                 
                 for i, (fractal_feat, deep_feat, filename) in enumerate(results):
@@ -220,9 +276,8 @@ class VHDPredictionPipeline:
             # Clear batch variables to free memory
             del batch_fractal_features, batch_deep_features, batch_labels
             
-            # Force garbage collection for memory optimization
-            import gc
-            gc.collect()
+            # Platform-optimized memory cleanup
+            self.resource_optimizer.optimize_memory_usage()
             
             # Progress indicator with parallel processing info
             elapsed = time.time() - start_time
@@ -231,10 +286,12 @@ class VHDPredictionPipeline:
             print(f" Batch {batch_idx + 1} completed: {len(all_fractal_features)} total samples - Rate: {rate:.1f} samples/sec - ETA: {eta/60:.1f} min")
         
         total_time = time.time() - start_time
-        print(f"\n Feature extraction completed in {total_time/60:.1f} minutes")
-        print(f" Summary: {successful_extractions} successful, {failed_extractions} failed")
-        print(f" Average rate: {successful_extractions/total_time:.1f} samples/second")
-        print(f" Parallel processing speedup: {max_workers}x theoretical maximum")
+        print(f"\n✅ Feature extraction completed in {total_time/60:.1f} minutes")
+        print(f"📊 Summary: {successful_extractions} successful, {failed_extractions} failed")
+        print(f"⚡ Average rate: {successful_extractions/total_time:.1f} samples/second")
+        print(f"🚀 Platform optimization speedup: {max_workers}x theoretical maximum")
+        print(f"💾 Memory optimization: {self.platform_config['memory_management']['strategy'].title()}")
+        print(f"🎯 Processing mode: {self.platform_config['optimization_level'].title()}")
         
         fractal_features = np.array(all_fractal_features)
         deep_features = np.array(all_deep_features)
