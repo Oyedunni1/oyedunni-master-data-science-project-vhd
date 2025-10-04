@@ -379,16 +379,14 @@ class VHDPredictionPipeline:
             )
             print("✅ Performance metrics updated successfully")
         else:
-            print("⚠️  No evaluation results available - using default metrics")
-            # Update with default metrics if no results
-            self.performance_tracker.update_training_metrics(
-                accuracy=0.0,
-                precision=0.0,
-                recall=0.0,
-                f1_score=0.0,
-                auc_score=0.0,
-                model_type="Ensemble"
-            )
+            print("⚠️  No evaluation results available - preserving existing metrics")
+            # Don't overwrite existing metrics if no new results are available
+            # Only update the training status
+            existing_metrics = self.performance_tracker.get_comprehensive_metrics()
+            if existing_metrics.get('accuracy', 0) > 0:
+                print("✅ Preserving existing training metrics")
+            else:
+                print("⚠️  No existing metrics found - model may need retraining")
         
         self.is_trained = True
         
@@ -525,15 +523,25 @@ class VHDPredictionPipeline:
         elif "optimized" in str(model_path):
             model_name = "VHD Optimized Model"
         
-        # Update performance tracker with model info
-        self.performance_tracker.update_training_metrics(
-            accuracy=0.0,  # Will be updated when actual training metrics are available
-            precision=0.0,
-            recall=0.0,
-            f1_score=0.0,
-            auc_score=0.0,
-            model_type=model_name
-        )
+        # Update performance tracker with model info (preserve existing metrics)
+        existing_metrics = self.performance_tracker.get_comprehensive_metrics()
+        if existing_metrics.get('accuracy', 0) > 0:
+            # Preserve existing metrics, only update model type
+            self.performance_tracker.metrics["model_info"]["model_type"] = model_name
+            self.performance_tracker.metrics["model_info"]["is_trained"] = True
+            self.performance_tracker._save_metrics()
+            print(f"✅ Preserved existing metrics, updated model type to: {model_name}")
+        else:
+            # Only update if no existing metrics
+            self.performance_tracker.update_training_metrics(
+                accuracy=0.0,
+                precision=0.0,
+                recall=0.0,
+                f1_score=0.0,
+                auc_score=0.0,
+                model_type=model_name
+            )
+            print(f"⚠️  No existing metrics found, model type set to: {model_name}")
         
         print(f"Model loaded from {model_path}")
         print(f"Model type set to: {model_name}")
