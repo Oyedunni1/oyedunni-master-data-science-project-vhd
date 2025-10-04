@@ -426,9 +426,23 @@ VHD Detection System/
 ├── data/                        # PhysioNet dataset (included)
 │   ├── raw/                     # Original PCG recordings
 │   └── labels.csv              # Pre-processed labels
+├── doc/                         # Documentation & Visualizations
+│   ├── 01_system_architecture.md # System overview diagram
+│   ├── 02_ml_pipeline.md         # ML workflow flowchart
+│   ├── 03_feature_extraction.md  # Feature engineering process
+│   ├── 04_ensemble_learning.md   # Ensemble learning architecture
+│   ├── 05_performance_metrics.md # Performance analysis
+│   ├── 06_web_application.md     # Web app user flow
+│   ├── 07_data_flow.md          # Data transformation pipeline
+│   ├── 08_research_methodology.md # Research framework
+│   └── Dunni_Thesis.md           # Complete thesis documentation
 ├── app.py                      # Web application
 ├── train_model.py              # Model training script
-└── requirements.txt            # Dependencies
+├── requirements.txt            # Dependencies (Linux/Mac)
+├── requirements_windows.txt    # Windows-specific dependencies
+├── setup_windows.bat          # Automated Windows setup
+├── windows_setup.py            # Windows compatibility script
+└── README.md                   # This documentation
 ```
 
 ### 🌐 **Web Application Features**
@@ -493,6 +507,94 @@ streamlit run app.py
 # Upload heart sound file (.wav, .mp3, .flac)
 # Click "Analyze Heart Sound" for instant results
 ```
+
+---
+
+## 🖥️ **Windows Setup Guide (Optional)**
+
+### **Automated Windows Setup**
+
+For Windows users, we provide an automated setup script that handles common compatibility issues:
+
+#### **Option 1: Automated Setup (Recommended for Windows)**
+```cmd
+# Run the automated Windows setup
+setup_windows.bat
+
+# This will:
+# - Check Python installation
+# - Create virtual environment
+# - Install Windows-specific dependencies
+# - Configure Windows compatibility settings
+# - Create necessary directories
+```
+
+#### **Option 2: Manual Windows Setup**
+```cmd
+# 1. Create virtual environment
+python -m venv vhd_env
+
+# 2. Activate environment
+vhd_env\Scripts\activate
+
+# 3. Install Windows-specific requirements
+pip install -r requirements_windows.txt
+
+# 4. Run Windows compatibility setup
+python windows_setup.py
+
+# 5. Train model
+python train_model.py
+
+# 6. Launch application
+streamlit run app.py
+```
+
+### **Windows-Specific Features**
+
+#### **Automatic Compatibility Handling**
+- **TensorFlow Compatibility**: Automatic fallback to CPU if GPU issues occur
+- **Memory Management**: Optimized for Windows memory constraints
+- **Threading**: Limited to 4 workers to prevent Windows threading issues
+- **Dependencies**: Windows-specific package versions for stability
+
+#### **Windows Configuration**
+The system automatically creates `windows_config.json` with optimal settings:
+```json
+{
+  "use_pretrained_weights": false,
+  "max_workers": 4,
+  "memory_limit_gb": 8,
+  "enable_gpu": false,
+  "fallback_to_cpu": true
+}
+```
+
+#### **Troubleshooting Windows Issues**
+```cmd
+# If you encounter issues, try:
+python windows_setup.py
+
+# This will:
+# - Check all dependencies
+# - Configure environment variables
+# - Set up Windows-specific optimizations
+# - Create fallback configurations
+```
+
+### **Windows Performance Notes**
+- **CPU Processing**: Optimized for Windows CPU usage patterns
+- **Memory Limits**: Set to 8GB to prevent Windows memory issues
+- **Threading**: Limited to 4 workers for Windows stability
+- **Fallback Mode**: Automatic fallback if ImageNet weights fail to load
+
+### **Windows Requirements**
+- **Python**: 3.8+ (64-bit recommended)
+- **RAM**: 8GB+ recommended
+- **Storage**: 5GB+ free space
+- **OS**: Windows 10/11 (64-bit)
+
+---
 
 ---
 
