@@ -22,12 +22,12 @@
     ]
   },
   "runtime_stats": {
-    "total_predictions": 22,
-    "successful_predictions": 22,
+    "total_predictions": 23,
+    "successful_predictions": 23,
     "failed_predictions": 0,
-    "average_confidence": 0.7573553061395472,
-    "average_processing_time": 0.1990241679278287,
-    "last_prediction_time": "2025-10-04T04:27:31.965536"
+    "average_confidence": 0.7629923914118639,
+    "average_processing_time": 0.19549504570339038,
+    "last_prediction_time": "2025-10-04T04:36:03.132903"
   },
   "prediction_history": [
     {
@@ -182,6 +182,13 @@
       "confidence": 0.9923707469214434,
       "processing_time": 0.1019589900970459,
       "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T04:36:03.132903",
+      "confidence": 0.8870082674028332,
+      "processing_time": 0.11785435676574707,
+      "prediction": "Abnormal (VHD Detected)",
       "success": true
     }
   ],
