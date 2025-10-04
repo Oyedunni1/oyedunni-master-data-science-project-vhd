@@ -22,12 +22,12 @@
     ]
   },
   "runtime_stats": {
-    "total_predictions": 24,
-    "successful_predictions": 24,
+    "total_predictions": 32,
+    "successful_predictions": 32,
     "failed_predictions": 0,
-    "average_confidence": 0.7570740132036109,
-    "average_processing_time": 0.2295920451482137,
-    "last_prediction_time": "2025-10-04T14:28:25.814142"
+    "average_confidence": 0.7472431921181072,
+    "average_processing_time": 0.22819945961236954,
+    "last_prediction_time": "2025-10-04T14:44:23.075323"
   },
   "prediction_history": [
     {
@@ -195,6 +195,62 @@
       "timestamp": "2025-10-04T14:28:25.814142",
       "confidence": 0.6209513144137895,
       "processing_time": 1.0138230323791504,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:43:29.971427",
+      "confidence": 0.6200585952716513,
+      "processing_time": 1.0913763046264648,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:43:40.559616",
+      "confidence": 0.5777888620673738,
+      "processing_time": 0.1005699634552002,
+      "prediction": "Abnormal (VHD Detected)",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:43:46.586979",
+      "confidence": 0.5503522205324012,
+      "processing_time": 0.09928011894226074,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:43:59.059300",
+      "confidence": 0.922376498532006,
+      "processing_time": 0.10075807571411133,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:44:03.665126",
+      "confidence": 0.9497353108493212,
+      "processing_time": 0.09704804420471191,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:44:10.389005",
+      "confidence": 0.5579822163213395,
+      "processing_time": 0.10183095932006836,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:44:16.744877",
+      "confidence": 0.8243583714534424,
+      "processing_time": 0.1015019416809082,
+      "prediction": "Normal",
+      "success": true
+    },
+    {
+      "timestamp": "2025-10-04T14:44:23.075323",
+      "confidence": 0.7393537558652379,
+      "processing_time": 0.0998082160949707,
       "prediction": "Abnormal (VHD Detected)",
       "success": true
     }
