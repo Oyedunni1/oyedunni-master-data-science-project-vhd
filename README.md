@@ -8,11 +8,11 @@
 
 ---
 
-## 🎯 **Project Overview**
+##  **Project Overview**
 
 A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-focused feature design from phonocardiogram recordings using advanced ensemble learning and signal processing. This system achieves **84.91% accuracy** through sophisticated fractal analysis, spectral processing, and multi-algorithm ensemble learning.
 
-### 🏆 **Key Achievements**
+###  **Key Achievements**
 - ✅ **84.91% Accuracy** - State-of-the-art performance
 - ✅ **16 Optimal Features** - Enhanced feature extraction (6 fractal + 10 audio)
 - ✅ **Real-time Processing** - 10+ files/second with parallel processing
@@ -20,7 +20,7 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 - ✅ **Research-Grade** - PhysioNet CinC Challenge 2016 dataset
 - ✅ **Research Prototype** - Complete web application with analytics (not for clinical use)
 
-### 🎓 **Research Context & Motivation**
+###  **Research Context & Motivation**
 
 **Problem Statement:**
 - **Global Impact:** VHD affects 2.5% of the global population (180+ million people)
@@ -42,16 +42,16 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 
 ---
 
-## 🔬 **Research Methodology & Decision Framework**
+##  **Research Methodology & Decision Framework**
 
-### 📋 **Methodology Overview**
+###  **Methodology Overview**
 
 **Research Approach:** Applied Machine Learning with Medical Signal Processing
 **Dataset:** PhysioNet CinC Challenge 2016 (3,000+ real PCG recordings)
 **Validation:** 5-fold stratified cross-validation (mean±SD reported)
 **Evaluation Metrics:** Accuracy, Precision, Recall, F1-Score, AUC, Specificity, Sensitivity
 
-### 🎯 **Key Design Decisions & Rationale**
+###  **Key Design Decisions & Rationale**
 
 #### **1. Feature Engineering Strategy**
 **Decision:** 16 optimal features (6 fractal + 10 audio)
@@ -92,7 +92,7 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 - **Vectorized Operations:** NumPy optimizations for mathematical computations
 - **Batch Processing:** Efficient handling of multiple files simultaneously
 
-### 🧪 **Experimental Design**
+###  **Experimental Design**
 
 #### **Phase 1: Feature Engineering**
 1. **Literature Review:** Analyzed existing VHD detection methods
@@ -118,7 +118,7 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 3. **Model Persistence:** Joblib serialization for model storage
 4. **Production Deployment:** Docker containerization and cloud support
 
-### 📊 **Validation Strategy**
+###  **Validation Strategy**
 
 #### **Cross-Validation Approach**
 - **Method:** 5-fold stratified cross-validation
@@ -140,9 +140,9 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 
 ---
 
-## 🧠 **Technical Architecture**
+##  **Technical Architecture**
 
-### 🤖 **AI Model: Ensemble Learning System**
+###  **AI Model: Ensemble Learning System**
 
 **Primary Algorithm:** Weighted Voting Ensemble
 - **Gradient Boosting Classifier** (34.3% weight) - Tree-based boosting
@@ -154,7 +154,7 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 2. **Feature Selection** - 16 optimal features from comprehensive feature space
 3. **Statistical Testing** - Significance testing for feature validation
 
-### 🔬 **Feature Extraction: 16 Optimal Features**
+###  **Feature Extraction: 16 Optimal Features**
 
 #### **Fractal Features (6) - Signal Complexity Analysis:**
 1. **Higuchi Fractal Dimension** - Ultra-fast complexity measure
@@ -174,7 +174,7 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 7. **Spectral Contrast** - Timbral analysis (NEW)
 8. **MFCC Features (2)** - Mel-frequency cepstral coefficients
 
-### ⚡ **Performance Optimizations**
+###  **Performance Optimizations**
 
 **Parallel Processing:**
 - **ThreadPoolExecutor** - Multi-threaded feature extraction
@@ -190,7 +190,7 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 
 ---
 
-## 🚧 **Challenges & Solutions**
+##  **Challenges & Solutions**
 
 ### **Technical Challenges Faced**
 
@@ -288,9 +288,9 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 
 ---
 
-## 📊 **Performance Metrics**
+##  **Performance Metrics**
 
-### 🎯 **Model Performance (5-Fold CV Mean ± SD)**
+###  **Model Performance (5-Fold CV Mean ± SD)**
 - **Accuracy:** 84.91% ± 1.23%
 - **Precision:** 80.66% ± 2.15%
 - **Recall:** 76.42% ± 2.87%
@@ -299,12 +299,12 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 - **Specificity:** 78.48% ± 2.45%
 - **Sensitivity:** 76.42% ± 2.87%
 
-### 📈 **Cross-Validation Performance:**
+###  **Cross-Validation Performance:**
 - **Training Accuracy:** 85.23% ± 1.12% (across folds)
 - **Validation Accuracy:** 84.91% ± 1.23% (across folds)
 - **Overfitting Analysis:** Well-balanced performance (0.32% difference)
 
-### 🤖 **Individual Model Performance:**
+###  **Individual Model Performance:**
 
 #### **Primary Ensemble Models (Selected for Final Ensemble):**
 
@@ -375,13 +375,13 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 - **Weighted Voting:** Performance-based model combination maximizes accuracy
 - **Selection Strategy:** Top 3 models with AUC > 78% selected for ensemble
 
-### ⚡ **Processing Performance:**
+###  **Processing Performance:**
 - **Processing Speed:** 10+ files/second
 - **Feature Extraction:** 16 optimal features
 - **Parallel Workers:** 8 maximum threads
 - **Memory Efficiency:** Vectorized operations
 
-### 🖥️ **Hardware & Benchmark Specifications:**
+###  **Hardware & Benchmark Specifications:**
 - **CPU:** Intel Core i7-10700K (8 cores, 16 threads)
 - **RAM:** 32GB DDR4-3200
 - **Storage:** NVMe SSD for fast I/O
@@ -391,7 +391,7 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 
 ---
 
-## ⚖️ **Scope of Claim & Ethics/Regulatory Notice**
+##  **Scope of Claim & Ethics/Regulatory Notice**
 
 ### **Research Scope & Limitations**
 - **Dataset Labels:** PhysioNet CinC 2016 provides binary Normal/Abnormal labels, not specific VHD diagnosis
@@ -407,9 +407,9 @@ A **cutting-edge AI system** for **abnormal heart-sound screening** with VHD-foc
 
 ---
 
-## 🏗️ **System Architecture**
+##  **System Architecture**
 
-### 📁 **Project Structure**
+###  **Project Structure**
 ```
 VHD Detection System/
 ├── src/                          # Core AI algorithms
@@ -445,7 +445,7 @@ VHD Detection System/
 └── README.md                   # This documentation
 ```
 
-### 🌐 **Web Application Features**
+###  **Web Application Features**
 
 **5 Main Tabs:**
 1. **Upload & Predict** - Heart sound analysis interface
@@ -463,7 +463,7 @@ VHD Detection System/
 
 ---
 
-## 🚀 **Quick Start Guide**
+##  **Quick Start Guide**
 
 ### **Method 1: Complete Setup (Recommended)**
 
@@ -510,7 +510,7 @@ streamlit run app.py
 
 ---
 
-## 🖥️ **Windows Setup Guide (Optional)**
+##  **Windows Setup Guide (Optional)**
 
 ### **Automated Windows Setup**
 
@@ -598,7 +598,7 @@ python windows_setup.py
 
 ---
 
-## 🔬 **Technical Deep Dive**
+##  **Technical Deep Dive**
 
 ### **Signal Processing Pipeline**
 
@@ -628,7 +628,7 @@ Input: Heart Sound Audio (WAV file)
 Output: Binary Classification + Confidence Score
 ```
 
-### 🔧 **Implementation Deep Dive**
+###  **Implementation Deep Dive**
 
 #### **Feature Extraction Implementation**
 
@@ -821,7 +821,7 @@ metrics = {
 
 ---
 
-## 📊 **Dataset Information**
+##  **Dataset Information**
 
 ### **PhysioNet CinC Challenge 2016 Dataset (Automatically Downloaded)**
 
@@ -847,7 +847,7 @@ metrics = {
 
 ---
 
-## 🎯 **Presentation Points**
+##  **Presentation Points**
 
 ### **For Academic Presentations:**
 
@@ -890,7 +890,7 @@ metrics = {
 
 ---
 
-## 🔧 **Advanced Configuration**
+##  **Advanced Configuration**
 
 ### **Model Parameters**
 ```python
@@ -924,7 +924,7 @@ features = np.vectorize(ultra_fast_higuchi_fd)(signals)
 
 ---
 
-## 🧪 **Testing & Validation**
+##  **Testing & Validation**
 
 ### **Built-in Testing Suite**
 - **Model Performance Tab** - Comprehensive testing interface
@@ -940,7 +940,7 @@ features = np.vectorize(ultra_fast_higuchi_fd)(signals)
 
 ---
 
-## 🚀 **Deployment Options**
+##  **Deployment Options**
 
 ### **Local Deployment**
 ```bash
@@ -959,7 +959,7 @@ streamlit run app.py --server.port 8501 --server.address 0.0.0.0
 
 ---
 
-## 🔍 **Troubleshooting**
+##  **Troubleshooting**
 
 ### **Common Issues & Solutions**
 
@@ -985,7 +985,7 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 
 ---
 
-## 📚 **Research & References**
+##  **Research & References**
 
 ### **Key Research Papers**
 - **PhysioNet CinC Challenge 2016:** Dataset and methodology
@@ -1001,7 +1001,7 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 
 ---
 
-## 🎓 **Academic Context**
+##  **Academic Context**
 
 ### **Master's Thesis Focus**
 - **Research Question:** Can AI detect VHD from heart sounds?
@@ -1017,7 +1017,7 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 
 ---
 
-## 🤝 **Contributing & Support**
+##  **Contributing & Support**
 
 ### **Development**
 - **GitHub Repository:** Full source code available
@@ -1033,7 +1033,7 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 
 ---
 
-## 📄 **License & Acknowledgments**
+##  **License & Acknowledgments**
 
 **License:** MIT License - Open source for research and education
 
@@ -1045,7 +1045,7 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 
 ---
 
-## 🏆 **Project Highlights**
+##  **Project Highlights**
 
 ### **Technical Achievements**
 - ✅ **84.91% Accuracy** - State-of-the-art performance
@@ -1063,13 +1063,13 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 
 ---
 
-**Developed with ❤️ by Oyedunni Oyewumi**  
+**Developed by Oyedunni Oyewumi**  
 *Master's Thesis - Advanced Medical AI Research*  
 *VHD Detection System v2.0 | Powered by Ensemble AI*
 
 ---
 
-## 📞 **Contact & Support**
+##  **Contact & Support**
 
 **For questions, support, or collaboration:**
 - **GitHub Issues:** Technical support and bug reports
@@ -1077,7 +1077,7 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 - **Research:** Academic collaboration opportunities
 - **Deployment:** Production deployment assistance
 
-## 🔮 **Future Work & Research Directions**
+##  **Future Work & Research Directions**
 
 ### **Immediate Improvements (Next 6 months)**
 
@@ -1203,7 +1203,7 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 
 ---
 
-## 🎯 **Project Success Metrics**
+##  **Project Success Metrics**
 
 ### **Technical Achievements**
 - ✅ **84.91% Accuracy** - Exceeded 80% target
@@ -1220,11 +1220,11 @@ export TF_FORCE_GPU_ALLOW_GROWTH=true
 - ✅ **Open Source** - Complete codebase and documentation
 
 ### **Impact Potential**
-- 🎯 **Clinical Deployment** - Ready for healthcare system integration
-- 🎯 **Research Publication** - Academic paper material prepared
-- 🎯 **Commercial Viability** - Business model and market analysis
-- 🎯 **Global Health** - Low-cost diagnostic tool for resource-limited settings
-- 🎯 **Technology Transfer** - Industry partnership opportunities
+-  **Clinical Deployment** - Ready for healthcare system integration
+-  **Research Publication** - Academic paper material prepared
+-  **Commercial Viability** - Business model and market analysis
+-  **Global Health** - Low-cost diagnostic tool for resource-limited settings
+-  **Technology Transfer** - Industry partnership opportunities
 
 ---
 
